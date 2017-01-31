@@ -1,0 +1,9 @@
+#! /usr/bin/env ruby
+
+require_relative 'daemon'
+require_relative 'app-responsibly'
+
+Daemon.new(watch_process: true, logfile: './cli.log', pidfile: './cli.pid')
+  .process{ MyApp.start }
+  .on_interrupt{ MyApp.on_interrupt }
+  .start
